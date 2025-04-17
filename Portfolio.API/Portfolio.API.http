@@ -1,0 +1,45 @@
+@Portfolio.API_HostAddress = https://localhost:7269
+
+GET {{Portfolio.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+POST {{Portfolio.API_HostAddress}}/Api/Register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "username": "new_user",
+  "password": "Password123!sda112"
+}
+
+###
+POST {{Portfolio.API_HostAddress}}/Api/Login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "username": "new_user",
+  "password": "Password123!sda112"
+}
+
+
+###
+GET {{Portfolio.API_HostAddress}}/Experience/
+Accept: application/json
+
+###
+POST {{Portfolio.API_HostAddress}}/Experience
+Content-Type: application/json
+
+{
+  "Name":"Ahmed",
+  "Experiences": []
+}
+
+
+
+
+
+
+
