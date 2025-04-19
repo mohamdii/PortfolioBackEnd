@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio.API.DbContext;
 
@@ -11,9 +12,11 @@ using Portfolio.API.DbContext;
 namespace Portfolio.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250419120622_testingandseedingempolye")]
+    partial class testingandseedingempolye
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,7 +265,7 @@ namespace Portfolio.API.Migrations
                         {
                             Id = 1,
                             Address = "123 Software Street",
-                            EmployeeId = 1,
+                            EmployeeId = 0,
                             Name = "Tech Corp"
                         });
                 });
@@ -323,13 +326,13 @@ namespace Portfolio.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "411c4368-edd5-4721-a811-e73daefd1fe5",
+                            Id = "82b90487-e1ff-4054-9fb7-46c766a48dcf",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "41aee1a7-36f6-4fee-9de1-e820c3f94af1",
+                            ConcurrencyStamp = "01f4c325-8ad0-4262-9a39-8ba021808649",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "23a57e92-be47-48c9-878e-5e8bd0d083ac",
+                            SecurityStamp = "a11db420-4dfe-4d03-9d1b-0bbc1dbb5b22",
                             TwoFactorEnabled = false,
                             Name = "John Doe"
                         });

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio.API.DbContext;
 
@@ -11,9 +12,11 @@ using Portfolio.API.DbContext;
 namespace Portfolio.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250417232814_idrmoved")]
+    partial class idrmoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,19 +244,11 @@ namespace Portfolio.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmployeeId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("Companies");
 
@@ -262,7 +257,6 @@ namespace Portfolio.API.Migrations
                         {
                             Id = 1,
                             Address = "123 Software Street",
-                            EmployeeId = 1,
                             Name = "Tech Corp"
                         });
                 });
@@ -319,20 +313,6 @@ namespace Portfolio.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employee");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "411c4368-edd5-4721-a811-e73daefd1fe5",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "41aee1a7-36f6-4fee-9de1-e820c3f94af1",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "23a57e92-be47-48c9-878e-5e8bd0d083ac",
-                            TwoFactorEnabled = false,
-                            Name = "John Doe"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -384,15 +364,6 @@ namespace Portfolio.API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Portfolio.API.Data.Experience.Company", b =>
-                {
-                    b.HasOne("Portfolio.API.Data.Experience.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId1");
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Portfolio.API.Data.Experience.Experience", b =>

@@ -25,18 +25,20 @@ Content-Type: application/json
 
 
 ###
-GET {{Portfolio.API_HostAddress}}/Experience/
+GET {{Portfolio.API_HostAddress}}/Employee
 Accept: application/json
 
 ###
-POST {{Portfolio.API_HostAddress}}/Experience
+POST {{Portfolio.API_HostAddress}}/Employee
 Content-Type: application/json
 
 {
   "Name":"Ahmed",
   "Experiences": []
 }
-
+###
+GET {{Portfolio.API_HostAddress}}/Experience
+Accept: application/json
 
 
 

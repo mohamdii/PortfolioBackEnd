@@ -25,6 +25,7 @@ namespace Portfolio.API.DbContext
                 {
                     Id = 1,
                     CompanyId = 1,
+                    
                     StartDate = new DateTime(2020, 1, 1),
                     EndDate = new DateTime(2022, 12, 31),
                     JobTitle = "Software Engineer"
@@ -33,7 +34,14 @@ namespace Portfolio.API.DbContext
             {
                 Id = 1,
                 Name = "Tech Corp",
+                EmployeeId = 1,
                 Address = "123 Software Street"
+            });
+            modelBuilder.Entity<Employee>().HasData(new Employee
+            {
+                Id = 1,
+                Name = "John Doe",
+                
             });
         }
     }

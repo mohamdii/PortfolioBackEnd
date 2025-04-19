@@ -9,15 +9,27 @@ using Portfolio.API.Model;
 using Portfolio.API.Services;
 namespace Portfolio.API.Controllers;
 
-[Route("Experience")]
+[Route("Employee")]
 
 [ApiController]
-public class ExperienceController : ControllerBase
+public class EmployeeController : ControllerBase
 {
-    private readonly IBaseRepository<Experience> _baseRepositoy;
-    public ExperienceController(IBaseRepository<Experience> baseRepository)
+    private readonly IBaseRepository<Employee> _baseRepositoy;
+    public EmployeeController(IBaseRepository<Employee> baseRepository)
     {
         _baseRepositoy = baseRepository;
+    }
+
+    [HttpPost]
+    public IActionResult Post([FromBody] Employee obj)
+    {
+        if (obj == null)
+        {
+            return BadRequest("Employee Cant Be empty");
+        }
+        var find = _baseRepositoy.AddEmployee(obj);
+        return Ok(new { obj });
+
     }
 
     [HttpGet]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio.API.DbContext;
 
@@ -11,9 +12,11 @@ using Portfolio.API.DbContext;
 namespace Portfolio.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250419120236_testingDatabaseRelations")]
+    partial class testingDatabaseRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,7 +265,7 @@ namespace Portfolio.API.Migrations
                         {
                             Id = 1,
                             Address = "123 Software Street",
-                            EmployeeId = 1,
+                            EmployeeId = 0,
                             Name = "Tech Corp"
                         });
                 });
@@ -319,20 +322,6 @@ namespace Portfolio.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employee");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "411c4368-edd5-4721-a811-e73daefd1fe5",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "41aee1a7-36f6-4fee-9de1-e820c3f94af1",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "23a57e92-be47-48c9-878e-5e8bd0d083ac",
-                            TwoFactorEnabled = false,
-                            Name = "John Doe"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
