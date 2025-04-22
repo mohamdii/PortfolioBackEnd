@@ -1,16 +1,15 @@
-﻿namespace Portfolio.API.Data.Experience
+﻿using Portfolio.API.Data.Experience;
+
+namespace Portfolio.API.DTO
 {
-    public class Experience
+    public class ExperienceDTO
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public int EmployeeId { get; set; } // Foreign key to IdentityUser
-
-        public Company Company { get; set; } // Navigation property
-        public Employee Employee { get; set; } // Navigation property
-
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string JobTitle { get; set; }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.API.Data;
 using Portfolio.API.Model;
 using Portfolio.API.Services;
 
@@ -9,11 +10,11 @@ namespace Portfolio.API.Controllers
     [Route("Api/Register")]
     public class RegisterController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly JwtService _jwtService;
 
-        public RegisterController(JwtService jwtService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public RegisterController(JwtService jwtService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _jwtService = jwtService;
             _userManager = userManager;
@@ -29,11 +30,11 @@ namespace Portfolio.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new IdentityUser { UserName = model.UserName, Email = model.Email };
+            var user = new ApplicationUser  { UserName = model.UserName, Email = model.Email, EmployeeId = 1 };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                var token = _jwtService.GenerateToken(user.Id, user.UserName, new List<string> { "Admin" });
+
                 return Ok(new { Message = "User registered Successfully"});
             }
 

@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Portfolio.API.Data;
 using Portfolio.API.Data.Experience;
 
 namespace Portfolio.API.DbContext
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -25,7 +26,7 @@ namespace Portfolio.API.DbContext
                 {
                     Id = 1,
                     CompanyId = 1,
-                    
+                    EmployeeId = 1, // Assuming this is the Id of the employee in the IdentityUser table
                     StartDate = new DateTime(2020, 1, 1),
                     EndDate = new DateTime(2022, 12, 31),
                     JobTitle = "Software Engineer"
@@ -34,7 +35,6 @@ namespace Portfolio.API.DbContext
             {
                 Id = 1,
                 Name = "Tech Corp",
-                EmployeeId = 1,
                 Address = "123 Software Street"
             });
             modelBuilder.Entity<Employee>().HasData(new Employee

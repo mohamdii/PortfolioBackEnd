@@ -23,11 +23,9 @@ namespace Portfolio.API.BaseRepositoy
             return employee;
         }
 
-        public async Task<List<T>> FindAllAsync()
+        public IQueryable<T> FindAll()
         {
-            var objs = await _context.Set<T>().ToListAsync();
-
-            return objs;
+            return _context.Set<T>().AsQueryable();
         }
 
         public List<T> FindByName(string name)

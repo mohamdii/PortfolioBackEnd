@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
+using Portfolio.API.Data;
 using Portfolio.API.Model;
 using Portfolio.API.Services;
 
@@ -10,13 +11,13 @@ namespace Portfolio.API.Controllers;
 [ApiController]
 public class LoginController : ControllerBase
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly JwtService _jwtService;
 
     public LoginController(
-        UserManager<IdentityUser> userManager,
-        SignInManager<IdentityUser> signInManager,
+        UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager,
         JwtService jwtService)
     {
         _userManager = userManager;

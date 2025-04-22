@@ -35,8 +35,8 @@ public class EmployeeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetExperienceAsync()
     {
-        var experiences = await _baseRepositoy.FindAllAsync();
-        if (experiences.Count() > 0)
+        var experiences = await _baseRepositoy.FindAll().ToListAsync();
+        if (experiences.Any())
             return Ok(experiences);
 
         return Ok("No experiences found");

@@ -4,7 +4,7 @@ namespace Portfolio.API.BaseRepositoy.Interfaces
 {
     public interface IBaseRepository<T> where T : class
     {
-        Task<List<T>> FindAllAsync();
+        IQueryable<T> FindAll();
         List<T> FindByName(string name);
         Employee AddEmployee(Employee employee);
     }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using Portfolio.API.BaseRepositoy;
 using Portfolio.API.BaseRepositoy.Interfaces;
 using Portfolio.API.Data.Experience;
 using Portfolio.API.DbContext;
@@ -23,8 +24,8 @@ public class ExperienceController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetExperienceAsync()
     {
-        var experiences = await _baseRepositoy.FindAllAsync();
-        if (experiences.Count() > 0)
+        var experiences = await _baseRepositoy.FindAll().Where(e => e.EmployeeId ==1).Include(e => e.Employee).ToListAsync();
+        if (experiences.Any())
             return Ok(experiences);
 
         return Ok("No experiences found");
