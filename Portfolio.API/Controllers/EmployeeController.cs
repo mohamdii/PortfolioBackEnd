@@ -27,7 +27,7 @@ public class EmployeeController : ControllerBase
         {
             return BadRequest("Employee Cant Be empty");
         }
-        var find = _baseRepositoy.AddEmployee(obj);
+        var find = _baseRepositoy.Add(obj);
         return Ok(new { obj });
 
     }

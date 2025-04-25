@@ -6,6 +6,7 @@ namespace Portfolio.API.BaseRepositoy.Interfaces
     {
         IQueryable<T> FindAll();
         List<T> FindByName(string name);
-        Employee AddEmployee(Employee employee);
+        T Add(T obj);
+        T Update(int id);
     }
 }
