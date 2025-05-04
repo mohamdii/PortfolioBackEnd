@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 using Portfolio.API.Data;
 using Portfolio.API.Model;
 using Portfolio.API.Services;
@@ -13,12 +12,12 @@ public class LoginController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly JwtService _jwtService;
+    private readonly IJwtService _jwtService;
 
     public LoginController(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        JwtService jwtService)
+        IJwtService jwtService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -32,7 +31,6 @@ public class LoginController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-
         var user = await _userManager.FindByNameAsync(model.UserName);
 
         if (user == null)
@@ -52,7 +50,8 @@ public class LoginController : ControllerBase
             Token = token,
             UserId = user.Id,
             Username = user.UserName,
-            Roles = roles
+            Roles = roles,
+            user.EmployeeId
         });
     }
 }

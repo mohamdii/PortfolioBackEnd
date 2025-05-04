@@ -8,8 +8,8 @@ POST {{Portfolio.API_HostAddress}}/Api/Register
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
-  "username": "new_user",
+  "email": "u1ser@example.com",
+  "username": "new_use1111r",
   "password": "Password123!sda112"
 }
 
@@ -40,8 +40,30 @@ Content-Type: application/json
 GET {{Portfolio.API_HostAddress}}/Experience
 Accept: application/json
 
+###
+GET {{Portfolio.API_HostAddress}}/experience/get-by-id?id=1
+Accept: application/json
 
+###
 
+POST {{Portfolio.API_HostAddress}}/Experience/add-experience
+Content-Type: application/json
 
+{
+  "companyId": 1,
+  "employeeId": 1,
+  "startDate": "2022-01-01T00:00:00",
+  "endDate": "2023-12-31T00:00:00",
+  "jobTitle": "Project Management Intern",
+  "description": [
+    "Transported goods across long distances safely.",
+    "Performed daily vehicle inspections.",
+    "Maintained accurate delivery logs."
+  ]
+}
 
+###
+POST {{Portfolio.API_HostAddress}}/experience/remove-experience
+Content-Type: application/json
 
+4

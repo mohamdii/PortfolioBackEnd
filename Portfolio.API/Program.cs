@@ -8,6 +8,7 @@ using Portfolio.API.DbContext;
 using Portfolio.API.Services;
 using System.Text;
 using Portfolio.API.Data;
+using Portfolio.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,9 +35,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddSingleton<JwtService>();
+builder.Services.AddSingleton<IJwtService, JwtService>();
 builder.Services.AddControllers();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -72,5 +75,5 @@ app.UseCors("AllowAngularDev");
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.Run();

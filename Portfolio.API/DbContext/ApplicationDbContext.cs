@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Azure.Core.GeoJson;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.API.Data;
@@ -29,7 +30,8 @@ namespace Portfolio.API.DbContext
                     EmployeeId = 1, // Assuming this is the Id of the employee in the IdentityUser table
                     StartDate = new DateTime(2020, 1, 1),
                     EndDate = new DateTime(2022, 12, 31),
-                    JobTitle = "Software Engineer"
+                    JobTitle = "Software Engineer",
+                    Description = new List<string> { "Developed web applications", "Collaborated with cross-functional teams", ".NET8 Knowlegde", "Angular Implementation" }
                 });
             modelBuilder.Entity<Company>().HasData(new Company
             {

@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using Portfolio.API.BaseRepositoy;
+﻿using Microsoft.AspNetCore.Mvc;
 using Portfolio.API.BaseRepositoy.Interfaces;
 using Portfolio.API.Data.Experience;
-using Portfolio.API.DbContext;
-using Portfolio.API.Model;
-using Portfolio.API.Services;
+using Portfolio.API.DTO;
+using Portfolio.API.Mappers;
 namespace Portfolio.API.Controllers;
 
-[Route("Experience")]
 
+
+[Route("/experience")]
 [ApiController]
 public class ExperienceController : ControllerBase
 {
@@ -20,15 +16,42 @@ public class ExperienceController : ControllerBase
     {
         _baseRepositoy = baseRepository;
     }
-
-    [HttpGet]
-    public async Task<IActionResult> GetExperienceAsync()
+    [HttpGet("get-by-id")]
+    public async Task<IActionResult> GetExperienceByIdAsync([FromQuery] int id)
     {
-        var experiences = await _baseRepositoy.FindAll().Where(e => e.EmployeeId ==1).Include(e => e.Employee).ToListAsync();
-        if (experiences.Any())
+        List<Experience> experiences = new List<Experience>();
+        var experience = await _baseRepositoy.FindByConditionAsync(e => e.EmployeeId == id, c => c.Company, e => e.Employee);
+        if (experience is not null)
+        {
+            foreach (var exp in experience)
+            {
+                experiences.Add(exp.ToAddExperienceDTO());
+            }
             return Ok(experiences);
+        }
+        return NotFound("Experience not found");
+    }
 
-        return Ok("No experiences found");
-
+    [HttpPost("remove-experience")]
+    public IActionResult RemoveExperience([FromBody] int id)
+    {
+        var find = _baseRepositoy.RemoveById(e => e.Id == id);
+        if (!find)
+        {
+            return BadRequest("Experience Cant Be empty");
+        }
+        return Ok(new { Message = "Success" });
+    }
+    
+    [HttpPost("add-experience")]
+    public IActionResult AddExperience([FromBody] AddExperienceDTO obj)
+    {
+        if (obj == null)
+        {
+            return BadRequest("Experience Cant Be empty");
+        }
+        var experience = obj.ToAddExperienceDTO();
+        var find = _baseRepositoy.Add(experience);
+        return Ok(new { obj });
     }
 }

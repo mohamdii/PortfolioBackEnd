@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.API.BaseRepositoy.Interfaces;
 using Portfolio.API.Data;
+using Portfolio.API.Data.Experience;
 using Portfolio.API.Model;
 using Portfolio.API.Services;
 
@@ -12,13 +14,12 @@ namespace Portfolio.API.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly JwtService _jwtService;
-
-        public RegisterController(JwtService jwtService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly IBaseRepository<Employee> _baseRepository;
+        public RegisterController( UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IBaseRepository<Employee> baseRepository)
         {
-            _jwtService = jwtService;
             _userManager = userManager;
-            _signInManager = signInManager; 
+            _signInManager = signInManager;
+            _baseRepository = baseRepository;
         }
 
         
@@ -30,11 +31,26 @@ namespace Portfolio.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser  { UserName = model.UserName, Email = model.Email, EmployeeId = 1 };
+            var employee = new Employee
+            {
+                Name = model.UserName,
+            };
+
+            var employeeAdded = _baseRepository.Add(employee);
+
+            if(employeeAdded is null)
+            {
+                return BadRequest("Failed to create employee record");
+            }
+
+            var user = new ApplicationUser  { UserName = model.UserName, Email = model.Email, EmployeeId = employee.Id };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-
+                _baseRepository.Add(new Employee
+                {
+                    Name = model.UserName
+                });
                 return Ok(new { Message = "User registered Successfully"});
             }
 

@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Portfolio.API.Services
 {
-    public class JwtService
+    public class JwtService : IJwtService
     {
         private readonly IConfiguration _configuration;
-
         public JwtService(IConfiguration configuration)
         {
             _configuration = configuration;

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-
+﻿
 namespace Portfolio.API.Data.Experience
 {
     public class Company
